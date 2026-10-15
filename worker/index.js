@@ -7,5 +7,6 @@ export default {async fetch(request){
     try{const raw=await request.text();if(raw.length>4096)return Response.json({error:'Request too large.'},{status:413});let body;try{body=JSON.parse(raw);}catch{return Response.json({error:'Invalid request.'},{status:400});}if(typeof body.url!=='string'||body.url.length>3000)return Response.json({error:'Enter a valid job link.'},{status:400});return Response.json(await importJob(body.url),{headers:{'Cache-Control':'no-store'}});}catch(e){return Response.json({error:e instanceof JobImportError?e.message:'Could not import this job link.'},{status:e.status||502});}
   }
   const asset=ASSETS[url.pathname==='/'?'/index.html':url.pathname];if(!asset)return new Response('Not found',{status:404});
-  return new Response(asset.body,{headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
+  const body=asset.encoding==='base64'?Uint8Array.from(atob(asset.body),c=>c.charCodeAt(0)):asset.body;
+  return new Response(body,{headers:{'content-type':asset.type,'cache-control':'no-cache','x-content-type-options':'nosniff'}});
 }};

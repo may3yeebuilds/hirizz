@@ -1,0 +1,5 @@
+const CACHE='hirizz-shell-v1';
+const FILES=['/','/index.html','/style.css','/drawer.css','/app.js','/platform.js','/match.js','/resume-analysis.js','/analysis-view.js','/resume-import.js','/jd-view.js','/tailor.js','/tailor-view.js','/vendor/mammoth.browser.min.js','/manifest.webmanifest','/icons/icon-192.png','/icons/icon-512.png'];
+self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(FILES)));});
+self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k.startsWith('hirizz-shell-')&&k!==CACHE).map(k=>caches.delete(k)))));});
+self.addEventListener('fetch',event=>{const url=new URL(event.request.url);if(event.request.method!=='GET'||url.origin!==self.location.origin||!FILES.includes(url.pathname))return;event.respondWith(fetch(event.request).then(response=>{if(response.ok&&!response.redirected){const copy=response.clone();caches.open(CACHE).then(cache=>cache.put(event.request,copy));}return response;}).catch(()=>caches.match(event.request)));});

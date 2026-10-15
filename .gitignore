@@ -2,3 +2,9 @@
 hirizz-deploy.tar.gz
 dist/server/
 dist/.openai/
+
+node_modules/
+.desktop-store/
+desktop/assets/
+desktop/jd.mjs
+releases/

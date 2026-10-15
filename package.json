@@ -1,1 +1,13 @@
-{"name":"hirizz","version":"0.2.0","private":true,"type":"module","scripts":{"start":"node server.mjs","build":"node scripts/build.mjs","test":"node --test --test-isolation=none tests/*.test.mjs"}}
+{
+  "name": "hirizz",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test --test-isolation=none tests/*.test.mjs",
+    "desktop:prepare": "node scripts/prepare-desktop.mjs",
+    "desktop:build": "node desktop/node_modules/electron-builder/cli.js --projectDir desktop --win nsis --x64 --publish never"
+  }
+}
