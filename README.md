@@ -13,3 +13,5 @@ Word uploads use the bundled Mammoth 1.11.0 library to extract plain text locall
 `dist/match.js` isolates matching/evidence functions for a future analysis adapter. `dist/app.js` owns UI and local persistence. A future API must run server-side, validate evidence for every generated claim, and keep credentials outside browser code.
 
 Run `node scripts/build.mjs` to produce the self-contained Sites Worker in `dist/server/index.js`. Browser assets are embedded; the existing site identity and origin stay unchanged. `worker/jd.js` implements bounded public HTTPS fetching with DNS checks, redirect validation, timeouts, and a response size limit.
+
+Opportunity rows and match percentages open a right-hand analysis drawer with match evidence, keyword filters, grounded improvement suggestions, job highlights, drafts, and activity. The estimated ATS score is a disclosed heuristic: 70% literal keyword coverage + 30% passed text checks (four section headings, email, dates, quantified outcomes). It does not validate file layout or predict employer ATS behavior.
