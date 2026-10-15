@@ -1,2 +1,4 @@
 .qa/
 hirizz-deploy.tar.gz
+dist/server/
+dist/.openai/
